@@ -1,3 +1,5 @@
+import kitFitnessVinho from "@/assets/kit-fitness-vinho.jpg";
+
 export interface Product {
   id: string;
   slug: string;
@@ -31,7 +33,7 @@ export const PRODUCTS: Product[] = [
     id: "1",
     slug: "kit-conjunto-fitness-legging-short-top",
     title: "Kit Conjunto Fitness Legging + Short + Top Alça Zero Transparência Arm",
-    images: img("legging-vinho"),
+    images: [kitFitnessVinho, ...img("legging-vinho")],
     price: 13490,
     originalPrice: 24990,
     rating: 4.8,

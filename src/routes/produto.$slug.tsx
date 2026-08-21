@@ -123,18 +123,20 @@ function ProductPage() {
 
       {/* Bloco de preço */}
       <section className="px-4" style={{ paddingTop: 14 }}>
-        <div className="flex flex-wrap items-baseline gap-x-1.5">
+        <div className="flex items-baseline gap-x-1 overflow-hidden whitespace-nowrap">
           <span className="rounded-full bg-primary px-1.5 py-[1px] text-[15px] font-bold text-primary-foreground">
             -{percent}%
           </span>
-          <span className="text-[17px] font-semibold text-primary">A partir de R$</span>
-          <span className="text-[34px] font-bold leading-none text-primary">{price.whole}</span>
-          <span className="text-[20px] font-bold text-primary">{price.cents}</span>
-          <Ticket size={16} className="self-center text-primary" />
-          <span className="text-[17px] text-strike line-through">
+          <span className="text-[16px] font-semibold text-primary">A partir de R$</span>
+          <span className="text-[32px] font-bold leading-none text-primary">{price.whole}</span>
+          <span className="text-[19px] font-bold text-primary">{price.cents}</span>
+          <Ticket size={15} className="translate-y-[-2px] self-center text-primary" />
+          <span className="text-[15px] text-strike line-through">
             R$ {formatAmount(product.originalPrice)}
           </span>
         </div>
+
+
 
         <button
           type="button"
@@ -293,7 +295,7 @@ function ProductPage() {
             type="button"
             onClick={handleAdd}
             disabled={outOfStock}
-            className="flex h-[46px] flex-1 items-center justify-center rounded-full bg-tab-active text-center text-[17px] font-bold leading-[19px] text-ink disabled:text-strike"
+            className="flex h-[46px] flex-1 items-center justify-center rounded-full bg-tab-active px-2 text-center text-[15px] font-bold leading-[17px] text-ink disabled:text-strike"
           >
             Adicionar
             <br />
@@ -303,17 +305,18 @@ function ProductPage() {
             type="button"
             onClick={handleBuyNow}
             disabled={outOfStock}
-            className="flex h-[46px] flex-1 flex-col items-center justify-center rounded-full bg-primary text-primary-foreground disabled:bg-strike"
+            className="flex h-[46px] flex-1 flex-col items-center justify-center rounded-full bg-primary px-2 text-primary-foreground disabled:bg-strike"
           >
-            <span className="text-[19px] font-bold leading-[21px]">
+            <span className="whitespace-nowrap text-[16px] font-bold leading-[18px]">
               {outOfStock ? "Esgotado" : "Comprar agora"}
             </span>
             {!outOfStock && (
-              <span className="text-[14px] font-normal leading-none">
+              <span className="text-[12px] font-normal leading-[14px]">
                 {formatCurrency(product.price)}
               </span>
             )}
           </button>
+
         </div>
       </div>
 
