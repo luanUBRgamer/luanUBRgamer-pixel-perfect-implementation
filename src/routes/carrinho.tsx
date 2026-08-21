@@ -150,7 +150,7 @@ function CartPage() {
                     </span>
                   )}
                   <div className="mt-2 flex items-end justify-between gap-2">
-                    <span className="flex items-baseline gap-1">
+                    <span className="flex min-w-0 flex-wrap items-baseline gap-x-1 whitespace-nowrap">
                       <span className="text-[13px] font-bold text-primary">R$</span>
                       <span className="text-[20px] font-bold leading-none text-primary">
                         {formatAmount(item.price)}
