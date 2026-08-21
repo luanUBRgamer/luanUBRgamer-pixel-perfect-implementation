@@ -91,7 +91,7 @@ export function ProductCard({ product, view }: ProductCardProps) {
 
       <div className="flex items-end justify-between" style={{ marginTop: 14 }}>
         <PriceTag price={product.price} originalPrice={product.originalPrice} />
-        <div onClick={(e) => e.preventDefault()}>
+        <div>
           <BuyButton onBuy={handleBuy} disabled={outOfStock} />
         </div>
       </div>
