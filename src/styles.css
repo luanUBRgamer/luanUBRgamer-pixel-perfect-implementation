@@ -19,6 +19,23 @@
  */
 
 @theme inline {
+  --font-sans:
+    Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-coupon-bg: var(--coupon-bg);
+  --color-shipping-bg: var(--shipping-bg);
+  --color-shipping-text: var(--shipping-text);
+  --color-ink: var(--ink);
+  --color-muted-fg: var(--muted-fg);
+  --color-strike: var(--strike);
+  --color-surface: var(--surface);
+  --color-divider: var(--divider);
+  --color-star: var(--star);
+  --color-official: var(--official);
+  --color-tab-active: var(--tab-active);
+  --color-watermark: var(--watermark);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -26,6 +43,7 @@
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -69,8 +87,21 @@
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
+  --primary: oklch(0.637 0.245 15.5); /* #FE2C55 */
+  --primary-foreground: oklch(1 0 0);
+  --primary-soft: oklch(0.94 0.033 12.5); /* #FFE8ED */
+  --coupon-bg: oklch(0.958 0.021 9.5); /* #FFF0F3 */
+  --shipping-bg: oklch(0.958 0.023 175); /* #E8F5F3 */
+  --shipping-text: oklch(0.624 0.096 180.5); /* #12A594 */
+  --ink: oklch(0.212 0.014 274); /* #161823 */
+  --muted-fg: oklch(0.628 0.007 286); /* #8A8B91 */
+  --strike: oklch(0.756 0.006 286); /* #B0B1B6 */
+  --surface: oklch(0.969 0 0); /* #F5F5F5 */
+  --divider: oklch(0.955 0 0); /* #F0F0F0 */
+  --star: oklch(0.833 0.163 84.4); /* #FFC107 */
+  --official: oklch(0.844 0.062 76.5); /* #E8C99B */
+  --tab-active: oklch(0.955 0 0); /* #F1F1F1 */
+  --watermark: oklch(0.191 0 0); /* #1C1C1C */
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
@@ -139,6 +170,16 @@
 
   body {
     background-color: var(--color-background);
-    color: var(--color-foreground);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
