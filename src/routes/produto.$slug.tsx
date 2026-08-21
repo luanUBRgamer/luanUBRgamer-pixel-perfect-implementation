@@ -58,6 +58,7 @@ export const Route = createFileRoute("/produto/$slug")({
 
 function ProductPage() {
   const { product } = Route.useLoaderData();
+  const navigate = useNavigate();
   const { add, count } = useCart();
   const [selected, setSelected] = useState<Record<string, string>>({});
   const [sheetOpen, setSheetOpen] = useState(false);
