@@ -294,7 +294,7 @@ function ProductPage() {
             type="button"
             onClick={handleAdd}
             disabled={outOfStock}
-            className="flex h-[46px] flex-1 items-center justify-center rounded-full bg-tab-active text-center text-[17px] font-bold leading-[19px] text-ink disabled:text-strike"
+            className="flex h-[46px] flex-1 items-center justify-center rounded-full bg-tab-active px-2 text-center text-[15px] font-bold leading-[17px] text-ink disabled:text-strike"
           >
             Adicionar
             <br />
@@ -304,17 +304,18 @@ function ProductPage() {
             type="button"
             onClick={handleBuyNow}
             disabled={outOfStock}
-            className="flex h-[46px] flex-1 flex-col items-center justify-center rounded-full bg-primary text-primary-foreground disabled:bg-strike"
+            className="flex h-[46px] flex-1 flex-col items-center justify-center rounded-full bg-primary px-2 text-primary-foreground disabled:bg-strike"
           >
-            <span className="text-[19px] font-bold leading-[21px]">
+            <span className="text-[16px] font-bold leading-[18px]">
               {outOfStock ? "Esgotado" : "Comprar agora"}
             </span>
             {!outOfStock && (
-              <span className="text-[14px] font-normal leading-none">
+              <span className="text-[12px] font-normal leading-[14px]">
                 {formatCurrency(product.price)}
               </span>
             )}
           </button>
+
         </div>
       </div>
 
