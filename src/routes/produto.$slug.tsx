@@ -307,7 +307,7 @@ function ProductPage() {
             disabled={outOfStock}
             className="flex h-[46px] flex-1 flex-col items-center justify-center rounded-full bg-primary px-2 text-primary-foreground disabled:bg-strike"
           >
-            <span className="text-[16px] font-bold leading-[18px]">
+            <span className="whitespace-nowrap text-[16px] font-bold leading-[18px]">
               {outOfStock ? "Esgotado" : "Comprar agora"}
             </span>
             {!outOfStock && (
