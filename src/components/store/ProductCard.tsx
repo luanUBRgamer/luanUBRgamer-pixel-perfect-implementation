@@ -1,8 +1,7 @@
-import { Link } from "@tanstack/react-router";
-import { toast } from "sonner";
+import { Link, useNavigate } from "@tanstack/react-router";
+import type { MouseEvent } from "react";
 import type { Product } from "@/data/products";
 import { discountPercent } from "@/lib/format";
-import { useCart } from "@/context/CartContext";
 import { PriceTag } from "./PriceTag";
 import { RatingLine } from "./RatingLine";
 import { BuyButton } from "./BuyButton";
@@ -14,15 +13,18 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, view }: ProductCardProps) {
-  const { add } = useCart();
+  const navigate = useNavigate();
   const outOfStock = product.stock <= 0;
   const percent = product.coupon?.percent ?? discountPercent(product.price, product.originalPrice);
 
-  const handleBuy = () => {
-    add(product);
-    toast("Adicionado ao carrinho", {
-      description: product.title,
-      action: { label: "Ver carrinho", onClick: () => undefined },
+  const handleBuy = (e?: MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    if (outOfStock) return;
+    void navigate({
+      to: "/produto/$slug",
+      params: { slug: product.slug },
+      resetScroll: true,
     });
   };
 
