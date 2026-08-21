@@ -123,18 +123,19 @@ function ProductPage() {
 
       {/* Bloco de preço */}
       <section className="px-4" style={{ paddingTop: 14 }}>
-        <div className="flex items-baseline gap-x-1 whitespace-nowrap">
+        <div className="flex items-baseline gap-x-1 overflow-hidden whitespace-nowrap">
           <span className="rounded-full bg-primary px-1.5 py-[1px] text-[15px] font-bold text-primary-foreground">
             -{percent}%
           </span>
-          <span className="text-[17px] font-semibold text-primary">A partir de R$</span>
-          <span className="text-[34px] font-bold leading-none text-primary">{price.whole}</span>
-          <span className="text-[20px] font-bold text-primary">{price.cents}</span>
+          <span className="text-[16px] font-semibold text-primary">A partir de R$</span>
+          <span className="text-[32px] font-bold leading-none text-primary">{price.whole}</span>
+          <span className="text-[19px] font-bold text-primary">{price.cents}</span>
           <Ticket size={15} className="translate-y-[-2px] self-center text-primary" />
-          <span className="text-[17px] text-strike line-through">
+          <span className="text-[15px] text-strike line-through">
             R$ {formatAmount(product.originalPrice)}
           </span>
         </div>
+
 
 
         <button
