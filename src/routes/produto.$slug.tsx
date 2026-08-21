@@ -112,14 +112,18 @@ function ProductPage() {
         <button type="button" aria-label="Compartilhar" className="text-ink">
           <Share2 size={22} strokeWidth={2.2} />
         </button>
-        <button type="button" aria-label="Carrinho" className="relative text-ink">
+        <Link
+          to="/carrinho"
+          aria-label="Abrir carrinho"
+          className="relative flex h-11 w-11 items-center justify-center text-ink"
+        >
           <ShoppingCart size={22} strokeWidth={2.2} />
           {count > 0 && (
-            <span className="absolute -right-2 -top-1.5 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
-              {count}
+            <span className="absolute right-1 top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
+              {count > 9 ? "9+" : count}
             </span>
           )}
-        </button>
+        </Link>
         <button type="button" aria-label="Mais opções" className="text-ink">
           <MoreHorizontal size={22} strokeWidth={2.4} />
         </button>
