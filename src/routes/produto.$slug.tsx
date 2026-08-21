@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import {
   Bookmark,
   ChevronLeft,
@@ -58,6 +58,7 @@ export const Route = createFileRoute("/produto/$slug")({
 
 function ProductPage() {
   const { product } = Route.useLoaderData();
+  const navigate = useNavigate();
   const { add, count } = useCart();
   const [selected, setSelected] = useState<Record<string, string>>({});
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -70,11 +71,19 @@ function ProductPage() {
   const requiredVariants = product.variants.map((v) => v.name);
   const allSelected = requiredVariants.every((name) => Boolean(selected[name]));
 
+  const goToCart = () => {
+    void navigate({ to: "/carrinho", resetScroll: true });
+  };
+
   const handleAdd = () => {
-    add(product);
+    if (!allSelected) {
+      setSheetOpen(true);
+      return;
+    }
+    add(product, selected);
     toast("Adicionado ao carrinho", {
       description: product.title,
-      action: { label: "Ver carrinho", onClick: () => undefined },
+      action: { label: "Ver carrinho", onClick: goToCart },
     });
   };
 
@@ -83,7 +92,8 @@ function ProductPage() {
       setSheetOpen(true);
       return;
     }
-    handleAdd();
+    add(product, selected);
+    goToCart();
   };
 
   return (
@@ -102,14 +112,18 @@ function ProductPage() {
         <button type="button" aria-label="Compartilhar" className="text-ink">
           <Share2 size={22} strokeWidth={2.2} />
         </button>
-        <button type="button" aria-label="Carrinho" className="relative text-ink">
+        <Link
+          to="/carrinho"
+          aria-label="Abrir carrinho"
+          className="relative flex h-11 w-11 items-center justify-center text-ink"
+        >
           <ShoppingCart size={22} strokeWidth={2.2} />
           {count > 0 && (
-            <span className="absolute -right-2 -top-1.5 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
-              {count}
+            <span className="absolute right-1 top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
+              {count > 9 ? "9+" : count}
             </span>
           )}
-        </button>
+        </Link>
         <button type="button" aria-label="Mais opções" className="text-ink">
           <MoreHorizontal size={22} strokeWidth={2.4} />
         </button>

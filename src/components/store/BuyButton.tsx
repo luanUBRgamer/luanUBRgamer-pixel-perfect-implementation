@@ -1,7 +1,8 @@
+import type { MouseEvent } from "react";
 import { ShoppingCart } from "lucide-react";
 
 interface BuyButtonProps {
-  onBuy: () => void;
+  onBuy: (e: MouseEvent) => void;
   disabled?: boolean;
   label?: string;
 }
@@ -13,7 +14,7 @@ export function BuyButton({ onBuy, disabled = false, label = "Comprar" }: BuyBut
         type="button"
         onClick={onBuy}
         disabled={disabled}
-        aria-label="Adicionar ao carrinho"
+        aria-label="Ver produto"
         className="flex w-[38px] items-center justify-center rounded-l-[6px] bg-primary-soft text-primary disabled:bg-divider disabled:text-strike"
       >
         <ShoppingCart size={17} strokeWidth={2} />
