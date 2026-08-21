@@ -1,3 +1,5 @@
+import kitFitnessVinho from "@/assets/kit-fitness-vinho.jpg";
+
 export interface Product {
   id: string;
   slug: string;
