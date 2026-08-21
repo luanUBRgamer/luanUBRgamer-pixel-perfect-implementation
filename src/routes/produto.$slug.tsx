@@ -71,11 +71,19 @@ function ProductPage() {
   const requiredVariants = product.variants.map((v) => v.name);
   const allSelected = requiredVariants.every((name) => Boolean(selected[name]));
 
+  const goToCart = () => {
+    void navigate({ to: "/carrinho", resetScroll: true });
+  };
+
   const handleAdd = () => {
-    add(product);
+    if (!allSelected) {
+      setSheetOpen(true);
+      return;
+    }
+    add(product, selected);
     toast("Adicionado ao carrinho", {
       description: product.title,
-      action: { label: "Ver carrinho", onClick: () => undefined },
+      action: { label: "Ver carrinho", onClick: goToCart },
     });
   };
 
@@ -84,7 +92,8 @@ function ProductPage() {
       setSheetOpen(true);
       return;
     }
-    handleAdd();
+    add(product, selected);
+    goToCart();
   };
 
   return (
