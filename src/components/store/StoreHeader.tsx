@@ -39,14 +39,14 @@ export function StoreHeader({ collapsed }: StoreHeaderProps) {
             <button type="button" aria-label="Compartilhar">
               <Share2 size={26} strokeWidth={2} />
             </button>
-            <button type="button" aria-label="Carrinho" className="relative">
+            <Link to="/carrinho" aria-label="Abrir carrinho" className="relative flex h-11 w-11 items-center justify-center">
               <ShoppingCart size={26} strokeWidth={2} />
               {count > 0 && (
-                <span className="absolute -right-2 -top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-primary px-1 text-[11px] font-bold text-primary-foreground">
-                  {count}
+                <span className="absolute right-1 top-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-primary px-1 text-[11px] font-bold text-primary-foreground">
+                  {count > 9 ? "9+" : count}
                 </span>
               )}
-            </button>
+            </Link>
           </div>
         </div>
 
