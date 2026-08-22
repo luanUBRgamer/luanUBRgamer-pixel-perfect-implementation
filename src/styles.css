@@ -19,8 +19,9 @@
  */
 
 @theme inline {
+  /* Fonte nativa de cada sistema (iOS/Android/desktop) */
   --font-sans:
-    Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-soft: var(--primary-soft);
@@ -168,18 +169,88 @@
     border-color: var(--color-border);
   }
 
+  html {
+    /* Remove o flash cinza de toque do Safari/Chrome mobile; o feedback
+       vem do estado :active abaixo */
+    -webkit-tap-highlight-color: transparent;
+    /* Impede o Safari de aumentar o texto sozinho em paisagem */
+    text-size-adjust: 100%;
+    /* clip (não hidden): não cria contexto de scroll, então position: sticky
+       da barra de abas continua funcionando */
+    overflow-x: clip;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+    /* Pull-to-refresh não dispara durante o scroll interno */
+    overscroll-behavior-y: contain;
+    /* Paisagem em iPhones com notch: conteúdo nunca sob o recorte */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  /* Elimina o atraso de ~300ms de double-tap-to-zoom */
+  button:not(:disabled),
+  a[href],
+  [role="button"] {
+    touch-action: manipulation;
+  }
+
+  /* Feedback de toque (troca do tap-highlight removido) */
+  button:active:not(:disabled),
+  a[href]:active,
+  [role="button"]:active {
+    filter: brightness(0.95);
+  }
+
+  /* Filhos de flex/grid com texto truncado não estouram o container no Safari */
+  main :where(.min-w-0) {
+    min-width: 0;
+  }
+
+  /* Fonte >= 16px evita o zoom automático do Safari iOS ao focar;
+     scroll-margin mantém o campo visível acima do teclado/barras fixas */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+    scroll-margin-bottom: 120px;
   }
 }
 
 @utility no-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* 100vh no Safari iOS inclui a barra de endereço e corta conteúdo;
+   dvh acompanha a altura visível real. Fallback vh primeiro. */
+@utility min-h-screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Barra fixa inferior: acima da barra de gestos do iPhone/Android e fora do
+   recorte lateral em paisagem. */
+@utility safe-bottom-bar {
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Espaço do topo sob a status bar / notch */
+@utility safe-top {
+  padding-top: env(safe-area-inset-top);
 }

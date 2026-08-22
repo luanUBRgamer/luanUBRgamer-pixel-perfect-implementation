@@ -16,7 +16,13 @@ export function StoreHeader({ collapsed }: StoreHeaderProps) {
   const scale = 1 - collapsed * 0.12;
 
   return (
-    <header className="relative overflow-hidden bg-black" style={{ height: 232 - collapsed * 44 }}>
+    <header
+      className="relative overflow-hidden bg-black"
+      style={{
+        paddingTop: "env(safe-area-inset-top)",
+        height: `calc(${232 - collapsed * 44}px + env(safe-area-inset-top))`,
+      }}
+    >
       {/* Marca-d'água configurável da loja */}
       <span
         aria-hidden="true"
@@ -29,14 +35,26 @@ export function StoreHeader({ collapsed }: StoreHeaderProps) {
       <div className="relative">
         {/* Barra de navegação */}
         <div className="flex items-center justify-between px-4" style={{ height: 56 }}>
-          <Link to="/" aria-label="Voltar" className="text-white focus-visible:outline-2">
+          <Link
+            to="/"
+            aria-label="Voltar"
+            className="-ml-[9px] flex h-11 w-11 items-center justify-center text-white focus-visible:outline-2"
+          >
             <ChevronLeft size={26} strokeWidth={2} />
           </Link>
-          <div className="flex items-center text-white" style={{ gap: 20 }}>
-            <button type="button" aria-label="Buscar">
+          <div className="flex items-center text-white" style={{ gap: 2 }}>
+            <button
+              type="button"
+              aria-label="Buscar"
+              className="flex h-11 w-11 items-center justify-center"
+            >
               <Search size={26} strokeWidth={2} />
             </button>
-            <button type="button" aria-label="Compartilhar">
+            <button
+              type="button"
+              aria-label="Compartilhar"
+              className="flex h-11 w-11 items-center justify-center"
+            >
               <Share2 size={26} strokeWidth={2} />
             </button>
             <Link to="/carrinho" aria-label="Abrir carrinho" className="relative flex h-11 w-11 items-center justify-center">

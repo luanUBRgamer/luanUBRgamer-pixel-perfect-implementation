@@ -12,7 +12,7 @@ export interface StoreConfig {
   productCount: number;
   following: boolean;
   /** Exibe o card "LIVE" sobre a galeria do produto */
-  live: boolean;
+  isLive: boolean;
 }
 
 export const STORE: StoreConfig = {
@@ -22,5 +22,5 @@ export const STORE: StoreConfig = {
   followers: "14.0K",
   productCount: 244,
   following: true,
-  live: true,
+  isLive: false,
 };

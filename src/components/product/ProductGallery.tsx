@@ -38,7 +38,7 @@ export function ProductGallery({ images, title, onSizeClick }: ProductGalleryPro
         ))}
       </div>
 
-      {STORE.live && (
+      {STORE.isLive === true && (
         <div
           className="absolute right-0 top-6 flex flex-col items-center justify-center gap-1 rounded-l-xl bg-background"
           style={{ width: 66, height: 66 }}

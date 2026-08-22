@@ -3,6 +3,7 @@ import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { ChevronLeft, Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { useCart } from "@/context/CartContext";
+import { useInputFocused } from "@/hooks/use-input-focused";
 import { formatAmount, formatCurrency } from "@/lib/format";
 
 export const Route = createFileRoute("/carrinho")({
@@ -25,6 +26,7 @@ export const Route = createFileRoute("/carrinho")({
 function CartPage() {
   const router = useRouter();
   const { items, remove, setQuantity } = useCart();
+  const keyboardOpen = useInputFocused();
   const [selected, setSelected] = useState<Record<string, boolean>>({});
   const [editing, setEditing] = useState(false);
 
@@ -52,7 +54,7 @@ function CartPage() {
   };
 
   return (
-    <div className="mx-auto min-h-screen max-w-[560px] bg-background pb-[86px]">
+    <div className="mx-auto min-h-screen max-w-[560px] bg-background pb-[calc(98px+env(safe-area-inset-bottom))]">
       <header
         className="flex items-center gap-2 border-b border-divider px-2"
         style={{ height: 58 }}
@@ -204,7 +206,7 @@ function CartPage() {
       )}
 
       {items.length > 0 && (
-        <div className="fixed inset-x-0 bottom-0 z-20 mx-auto max-w-[560px] border-t border-divider bg-background pb-[env(safe-area-inset-bottom)]">
+        <div className="fixed inset-x-0 bottom-0 z-20 mx-auto max-w-[560px] border-t border-divider bg-background safe-bottom-bar" hidden={keyboardOpen}>
           <div className="flex items-center gap-3 px-4" style={{ height: 62 }}>
             <button
               type="button"
