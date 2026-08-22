@@ -20,6 +20,7 @@ import { toast } from "sonner";
 import { PRODUCTS } from "@/data/products";
 import { STORE } from "@/data/store";
 import { useCart } from "@/context/CartContext";
+import { useInputFocused } from "@/hooks/use-input-focused";
 import {
   deliveryRange,
   discountPercent,
@@ -58,6 +59,8 @@ export const Route = createFileRoute("/produto/$slug")({
 
 function ProductPage() {
   const { product } = Route.useLoaderData();
+  // iOS: esconde a barra fixa enquanto um campo está focado (teclado aberto)
+  const keyboardOpen = useInputFocused();
   const navigate = useNavigate();
   const { add, count } = useCart();
   const [selected, setSelected] = useState<Record<string, string>>({});
@@ -97,7 +100,7 @@ function ProductPage() {
   };
 
   return (
-    <div className="mx-auto min-h-screen max-w-[560px] bg-background pb-[76px]">
+    <div className="mx-auto min-h-screen max-w-[560px] bg-background pb-[calc(88px+env(safe-area-inset-bottom))]">
       {/* Barra superior */}
       <header className="flex items-center gap-3 px-4" style={{ height: 58 }}>
         <Link to="/" aria-label="Voltar" className="text-ink">
@@ -287,7 +290,7 @@ function ProductPage() {
       </section>
 
       {/* Barra fixa inferior */}
-      <div className="fixed inset-x-0 bottom-0 z-20 mx-auto max-w-[560px] border-t border-divider bg-background pb-[env(safe-area-inset-bottom)]">
+      <div className="fixed inset-x-0 bottom-0 z-20 mx-auto max-w-[560px] border-t border-divider bg-background safe-bottom-bar" hidden={keyboardOpen}>
         <div className="flex items-center gap-2 px-3" style={{ height: 59 }}>
           <Link
             to="/"

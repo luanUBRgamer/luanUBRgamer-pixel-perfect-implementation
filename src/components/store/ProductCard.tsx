@@ -2,6 +2,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import type { MouseEvent } from "react";
 import type { Product } from "@/data/products";
 import { discountPercent } from "@/lib/format";
+import { useCart } from "@/context/CartContext";
 import { PriceTag } from "./PriceTag";
 import { RatingLine } from "./RatingLine";
 import { BuyButton } from "./BuyButton";
@@ -14,12 +15,26 @@ interface ProductCardProps {
 
 export function ProductCard({ product, view }: ProductCardProps) {
   const navigate = useNavigate();
+  const { add } = useCart();
   const outOfStock = product.stock <= 0;
   const percent = product.coupon?.percent ?? discountPercent(product.price, product.originalPrice);
 
-  const handleBuy = (e?: MouseEvent) => {
-    e?.preventDefault();
-    e?.stopPropagation();
+  const handleAddToCart = (e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (outOfStock) return;
+    const variants: Record<string, string> = {};
+    for (const v of product.variants) {
+      const first = v.options[0];
+      if (first) variants[v.name] = first;
+    }
+    add(product, variants, 1);
+    void navigate({ to: "/carrinho", resetScroll: true });
+  };
+
+  const handleViewProduct = (e: MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (outOfStock) return;
     void navigate({
       to: "/produto/$slug",
@@ -92,7 +107,11 @@ export function ProductCard({ product, view }: ProductCardProps) {
       <div className="flex items-end justify-between" style={{ marginTop: 14 }}>
         <PriceTag price={product.price} originalPrice={product.originalPrice} />
         <div>
-          <BuyButton onBuy={handleBuy} disabled={outOfStock} />
+          <BuyButton
+            onAddToCart={handleAddToCart}
+            onViewProduct={handleViewProduct}
+            disabled={outOfStock}
+          />
         </div>
       </div>
     </div>
